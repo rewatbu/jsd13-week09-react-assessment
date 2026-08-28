@@ -5,7 +5,28 @@ function CreateUser() {
     const [name, setName] = useState("");
     const [lastname, setLastname] = useState("");
     const [position, setPosition] = useState("");
-    
+
+    async function handleCreateUser() {
+        if (!name || !lastname || !position) {
+            alert("Please fill in all fields. ด้วยนะ");
+            return;
+        }
+
+        try {
+            const createdUser = await createMember(newUser);
+            console.log("Created user:", createdUser);
+            alert(`User ${createdUser.name} was created successfully!`);
+
+            // Clear the form
+            setName("");
+            setLastname("");
+            setPosition("");
+        } catch (error) {
+            console.error("Failed to create user:", error);
+            alert("Failed to create user.");
+        }
+    }
+
     return (
         <div>
             <h2 className="text-center m-2 text-xl font-bold text-gray-900">Create User Here</h2>
