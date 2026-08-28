@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import UserTable from './UserTable'
+import UserTableAdmin from './UserTableAdmin'
 
 function Button({ name, onClick }) {
     return (
@@ -12,21 +14,27 @@ function Button({ name, onClick }) {
 
 function Hero() {
     const [clicked, setClicked] = useState("");
+    const [showUserTable, setShowUserTable] = useState(false);
 
     function handleClick(section) {
-        setClicked(section)
+        setClicked(section);
     }
 
     return (
         <div className="flex flex-col items-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">Generation Thailand</h1>
-            <span className="text-4xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-4xl font-bold text-gray-900">Generation Thailand</h1>
+            <span className="text-4xl font-bold text-gray-900 m-2">
                 { clicked ? clicked : "React - Assessment"}
             </span>
 
             <div className="button-section flex justify-center gap-20 m-8">
                 <Button name="User Home Section" onClick={() => handleClick("User Home Section")} />
                 <Button name="Admin Home Section" onClick={() => handleClick("Admin Home Section")} />
+            </div>
+
+            <div>
+                { clicked === "User Home Section" && <UserTable /> }
+                { clicked === "Admin Home Section" && <UserTableAdmin />}
             </div>
         </div>
     )
